@@ -30,8 +30,39 @@ class AlarmInputPageState extends State<AlarmInputPage> {
             border:
                 Border.fromBorderSide(BorderSide(color: Color(0xFFDBE2EF)))),
         backgroundColor: Color(0xFFF9F7F7),
-        child: Row(
+        child: Column(
           children: [
+            Padding(padding: EdgeInsets.all(10) ,child: Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.grey.shade300,
+              ),
+              child: Column(
+                children: [
+                  CupertinoTextField(
+                    style: TextStyle(
+                      color: Colors.black
+                    ),
+                    placeholderStyle: TextStyle(
+                      color: Colors.grey.shade100,
+                    ),
+                    placeholder: 'Required',
+                    prefix: Text(
+                      'Label:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black
+                      ),
+                    ),
+                    decoration: BoxDecoration(),
+                    onChanged: (String text) {
+                      Data.timerList[widget.idx].description = text;
+                    },
+                  ),
+                ],
+              ),
+            )),
             CupertinoTheme(
                 data: const CupertinoThemeData(
                     textTheme: CupertinoTextThemeData(
@@ -41,7 +72,7 @@ class AlarmInputPageState extends State<AlarmInputPage> {
                       )
                     )
                 ),
-                child: Flexible(child: CupertinoTimerPicker(
+                child: Padding(padding: EdgeInsetsDirectional.only(start: 0, top: 10, end: 5, bottom: 10),child: Container( alignment: AlignmentDirectional.topCenter, child: Flexible(child: CupertinoTimerPicker(
                     backgroundColor: Colors.white70,
                     mode: CupertinoTimerPickerMode.hm,
                     initialTimerDuration: Duration(hours: Data.timerList[widget.idx].time.hour, minutes: Data.timerList[widget.idx].time.minute),
@@ -49,7 +80,7 @@ class AlarmInputPageState extends State<AlarmInputPage> {
                       Data.timerList[widget.idx].time = TimeOfDay(
                           hour: time.inHours,
                           minute: time.inMinutes-time.inHours*60);
-                    })))
+                    })))))
           ],
         ));
   }
